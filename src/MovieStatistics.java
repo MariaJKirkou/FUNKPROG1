@@ -7,11 +7,11 @@ import java.util.stream.Collectors;
 public class MovieStatistics {
     //detta är själva hjälp klassen för alla analysfunktioner vi utför med movieanalysis
 
-    public static <T, R> R utförAnalys(List<T> data, MovieAnalysis<T, R> analysFunktion) {
+    public static <T, R> R doTheAnalys(List<T> data, MovieAnalysis<T, R> analysFunktion) {
         return analysFunktion.analysera(data);  // tar en annan funktion som parameter
     }
 
-    public static final MovieAnalysis<Movie, Optional<Movie>> findTheLongestMovie =
+    public static final MovieAnalysis<Movie, Optional<Movie>> findLongestMovieRuntime =
             movies -> movies.stream()
                     .max(Comparator.comparingInt(Movie::getRuntime));
 
@@ -20,6 +20,11 @@ public class MovieStatistics {
                     actor -> actor,Collectors.counting())).entrySet().stream().max(Map.Entry.comparingByValue())
                     .map(Map.Entry::getKey);
 
+
+    public static final MovieAnalysis<Movie, Long> countUniqueLanguages =
+            movies -> movies.stream().flatMap(movie -> movie.getLanguages().stream())
+                    .distinct()
+                    .count();
 
 }
 
