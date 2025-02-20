@@ -64,7 +64,7 @@ class MongoDBAtlasHandlerTest {
 
     @Test
     void getMostFrequentActorEmptyList() {
-        String result = mongoDBAtlasHandler.getMostFrequentActor(blancList);  // eller noMovies
+        String result = mongoDBAtlasHandler.getMostFrequentActor(blancList);  
         assertNull(result);
         System.out.println("Empty list result: " + result);
     }
