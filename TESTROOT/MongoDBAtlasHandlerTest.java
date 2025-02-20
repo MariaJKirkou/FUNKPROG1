@@ -12,7 +12,7 @@ class MongoDBAtlasHandlerTest {
     //testdata som kan återanvändas i alla tester
     List<Movie> testList = Arrays.asList(
             new Movie("M001", "Movie One", 1975, List.of("Drama"), "Director One",
-                    List.of("Actor One", "Actor Two"), 9.3, List.of("English"), 230),
+                    List.of("Actor One", "Actor Two","Actor Three","Actor Four"), 9.3, List.of("English"), 230),
             new Movie("M002", "Movie Two", 1975, List.of("Action"), "Director Two",
                     List.of("Actor Three"), 8.5, List.of("English", "Swedish"), 180),
             new Movie("M003", "Movie Three", 1976, List.of("Comedy"), "Director Three",
@@ -34,6 +34,23 @@ class MongoDBAtlasHandlerTest {
         assertEquals(230, longestMovieRuntime);
         assertNotEquals(150,longestMovieRuntime);
         System.out.println("Longest movie runtime: " + longestMovieRuntime + " minutes");
+    }
+    @Test
+    void getActorsInHighestRatedMovie(){
+        List<String> highestRatedCast = mongoDBAtlasHandler.getActorsInHighestRatedMovie(testList);
+        List<String> expected = Arrays.asList("Actor One", "Actor Two", "Actor Three","Actor Four");
+        assertEquals(4, highestRatedCast.size());
+        assertEquals(expected, highestRatedCast);
+        assertTrue(highestRatedCast.contains("Actor One"));
+        assertTrue(highestRatedCast.contains("Actor Two"));
+        assertTrue(highestRatedCast.contains("Actor Three"));
+        assertTrue(highestRatedCast.contains("Actor Four"));
+
+        System.out.println("Actors in highest-rated movie: " + highestRatedCast);
+    }
+    @Test
+    void getActorsInHighestRatedMovieEmptyList() {
+        List <String> result = mongoDBAtlasHandler.getActorsInHighestRatedMovie(blancList);
     }
 
 }
