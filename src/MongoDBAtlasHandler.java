@@ -18,6 +18,17 @@ public class MongoDBAtlasHandler {
                 movieList.add(Movie.fromDocument(doc));
             }
 
+            //analysfunktionerna
+            Optional<Movie> longestMovieRuntime = MovieStatistics.doTheAnalys(movieList, MovieStatistics.findLongestMovieRuntime);
+            System.out.println("Longest movie runtime: " + longestMovieRuntime.map(Movie::getTitle).orElse("No movie founded"));
+
+            Optional<String> popularActor = MovieStatistics.doTheAnalys(movieList, MovieStatistics.findTheMostPopularActor);
+            System.out.println("Most popular actor: " + popularActor.orElse("No one founded"));
+
+            Long countedUniqueLanguages = MovieStatistics.doTheAnalys(movieList, MovieStatistics.countUniqueLanguages);
+            System.out.println("Antal unika språk: " + countedUniqueLanguages);
+
+
 
             // Skriver ut alla filmer
 //            for (Movie movie : movieList) {
@@ -32,6 +43,8 @@ public class MongoDBAtlasHandler {
             System.out.println("Are there duplicate movie titles? " + hasDuplicateTitles(movieList));
             System.out.println("Movie with the fewest actors: " + getMovieWithLeastActors(movieList));
             System.out.println("Number of unique genres: " + getUniqueGenresCount(movieList));
+
+
 
         } catch (Exception e) {
             e.printStackTrace();
