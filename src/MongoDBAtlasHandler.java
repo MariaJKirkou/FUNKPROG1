@@ -26,7 +26,7 @@ public class MongoDBAtlasHandler {
             System.out.println("Most popular actor: " + popularActor.orElse("No one founded"));
 
             Long countedUniqueLanguages = MovieStatistics.doTheAnalys(movieList, MovieStatistics.countUniqueLanguages);
-            System.out.println("Antal unika språk: " + countedUniqueLanguages);
+            System.out.println("Counted unique languages: " + countedUniqueLanguages);
 
 
 
