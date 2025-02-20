@@ -51,6 +51,52 @@ class MongoDBAtlasHandlerTest {
     @Test
     void getActorsInHighestRatedMovieEmptyList() {
         List <String> result = mongoDBAtlasHandler.getActorsInHighestRatedMovie(blancList);
+        assertEquals(Collections.emptyList(), result);
+        System.out.println("Empty list result: " + result);
+    }
+
+    @Test
+    void getMostFrequentActor() {
+        String result = mongoDBAtlasHandler.getMostFrequentActor(testList);
+        assertEquals("Actor Three", result);
+        assertNotEquals("Actor Two", result);
+        System.out.println("Most frequent actor: " + result);
+    }
+
+    @Test
+    void getMostFrequentActorEmptyList() {
+        String result = mongoDBAtlasHandler.getMostFrequentActor(blancList);  // eller noMovies
+        assertNull(result);
+        System.out.println("Empty list result: " + result);
+    }
+
+    @Test
+    void countUniqueLanguages() {
+        long result =mongoDBAtlasHandler.countUniqueLanguages(testList);
+        assertEquals(2, result);
+        assertNotEquals(1, result);
+        System.out.println("Number of unique languages: " + result);
+    }
+
+    @Test
+    void hasDuplicateTitles() {
+        boolean result = mongoDBAtlasHandler.hasDuplicateTitles(testList);
+        assertFalse(result);
+        System.out.println("Has duplicate titles: " + result);
+    }
+
+    @Test
+    void getMovieWithLeastActors() {
+        String result = mongoDBAtlasHandler.getMovieWithLeastActors(testList);
+        assertEquals("Movie Two", result);
+        System.out.println("Movie with least actors: " + result);
+    }
+
+    @Test
+    void getUniqueGenresCount() {
+        long result = mongoDBAtlasHandler.getUniqueGenresCount(testList);
+        assertEquals(3, result);
+        System.out.println("Number of unique genres: " + result);
     }
 
 }

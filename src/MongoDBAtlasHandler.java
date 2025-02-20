@@ -69,13 +69,13 @@ public class MongoDBAtlasHandler {
                 .orElse(new ArrayList<>());
     }
 
-    private long countUniqueLanguages(List<Movie> movieList) {
+    public long countUniqueLanguages(List<Movie> movieList) {
         return movieList.stream()
                 .flatMap(movie -> movie.getLanguages().stream())
                 .distinct()
                 .count();
     }
-    private boolean hasDuplicateTitles(List<Movie> movieList) {
+    public boolean hasDuplicateTitles(List<Movie> movieList) {
         return movieList.stream()
                 .map(Movie::getTitle)
                 .anyMatch(title -> movieList.stream()
@@ -83,13 +83,13 @@ public class MongoDBAtlasHandler {
                         .filter(t -> t.equals(title))
                         .count() > 1);
     }
-    private String getMovieWithLeastActors(List<Movie> movieList) {
+    public String getMovieWithLeastActors(List<Movie> movieList) {
         return movieList.stream()
                 .min(Comparator.comparingInt(movie -> movie.getCast().size()))  // Hitta filmen med minst antal i cast
                 .map(Movie::getTitle)                                           // Få ut titeln från den filmen
                 .orElse("");
     }
-    private long getUniqueGenresCount(List<Movie> movieList) {
+    public long getUniqueGenresCount(List<Movie> movieList) {
         return movieList.stream()
                 .flatMap(movie -> movie.getGenres().stream())
                 .distinct()
@@ -102,7 +102,7 @@ public class MongoDBAtlasHandler {
                 .entrySet().stream() //mest förekommande skådespelaren.
                 .max(Map.Entry.comparingByValue())//entry med högst värde
                 .map(Map.Entry::getKey)//namnet på skådespelaren fr entry i map som har högst värde
-                .orElse("");
+                .orElse(null);
     }
 
 }
